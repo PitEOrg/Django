@@ -1,0 +1,18 @@
+Spotaknie 1 (17 kwiatnia 2015)
+Osoby biorące udział:
+-Grzegorz Ryniak
+-Karol Cwynar
+-Karol Etrych
+
+Czas spotkania: 15 minut
+
+Opis:
+Na spotakniu ustaliliśmy, że nasz projekt będzie realizował internetowy system ocen dla uczelni (aka wirtualny dziekanat). Korzystanie z serwisu będzie w całości opartę o przeglądarkę internetową. Ustalona została również wstępna lista tabel w bazie danych tj:
+-oceny
+-studenci
+-kadra
+-przedmioty
+-informacje dodatkowe
+
+System będzie tak zbudowany aby w łatwy sposób można było dodać nowe funkcjonalności (nacisk na modułowość). Początkowo interface strony www będzie statyczny. Opcjonalną możliwością (jeśli czas pozwoli) będzie interface zbudowany w oparciu o javascript. 
+
