@@ -1,0 +1,9 @@
+<h1>Strona logowania</h1>
+
+<form action="{% url 'signin' %}" method='post'>
+{% csrf_token %}
+	<input type="text" name="username" />
+	<input type="password" name="password" />
+	<input type="hidden" name="step" value="1" />
+	<input type="submit" value="Zaloguj" />
+</form>

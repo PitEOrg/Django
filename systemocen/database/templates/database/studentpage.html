@@ -1,0 +1,17 @@
+<h1>{{student.user.username}}</h1>
+<h2>Twoje dane</h2>
+Imie: {{student.user.first_name}} </br>
+Nazwosko: {{student.user.last_name}} </br>
+Email: {{student.user.email }} </br>
+<h2>Przedmioty, na ktore jestes zapisany</h2>
+<ul>
+{% for subject in subjects %}
+	<li>{{subject.name}}</li>
+{% endfor %}
+</ul>
+<h2>Twoje oceny</h2>
+<ul>
+{% for grade in grades %}
+	<li>Przedmiot: {{grade.0}}, ocena: {{grade.1}}</li>
+{% endfor %}
+</ul>
