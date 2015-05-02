@@ -1,0 +1,12 @@
+<h1>{{teacher.user.username}}</h1>
+<h2>Twoje dane</h2>
+Imie: {{teacher.user.first_name}} </br>
+Nazwosko: {{teacher.user.last_name}} </br>
+Email: {{teacher.user.email }} </br>
+<h2>Przedmioty, ktore prowadzisz</h2>
+<ul>
+{% for subject in subjects %}
+	<li>{{subject.name}} <a href="{% url 'teachersubject' subject.pk %}">SZCZEGOLY</a></li>
+{% endfor %}
+
+</ul>

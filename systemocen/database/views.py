@@ -11,7 +11,7 @@ def signin(request):
 	try:
 		log_step =  request.POST['step']
 	except KeyError:
-		return render(request, 'database/login.html')
+		return render(request, 'database/signin.html')
 	else:
 		if log_step == '1':
 			username = request.POST['username']
@@ -20,14 +20,24 @@ def signin(request):
 			if user is not None:
 				if user.is_active:
 					login(request, user)
-					return HttpResponseRedirect(reverse('studentpage'))
+					try:
+						student = Student.objects.get(user = request.user)
+						return HttpResponseRedirect(reverse('studentpage'))
+					except Student.DoesNotExist:
+						try:
+							teacher = Teacher.objects.get(user = request.user)
+							return HttpResponseRedirect(reverse('teacherpage'))
+						except Teacher.DoesNotExist:
+							return HttpResponse('Konto nie prydzielone')			
 				else:
 					return HttpResponse('Konto wylaczone')
 			else:
 				return HttpResponse('Bledny login')
 		else:
 			return HttpResponse('Cos' + log_step)
-	return HttpResponse('nic')
+
+	
+
 	
 def testpage(request):
 	if request.user.is_authenticated():
@@ -49,5 +59,29 @@ def studentpage(request):
 			return HttpResponse("Niema studenta")
 	else:
 		return HttpResponse("Nie zalogowany")		
+		
+def teacherpage(request):
+	if request.user.is_authenticated():
+		try:
+			te = Teacher.objects.get(user = request.user)
+			subjects = (subjects for subjects in te.subject_set.all())
+						
+			return render(request, 'database/teacherpage.html',{ 'teacher':te, 'subjects':subjects})
+		except Student.DoesNotExist:
+			return HttpResponse("Niema nayczyciela")
+	else:
+		return HttpResponse("Nie zalogowany")	
+		
+def teachersubject(request):
+	if request.user.is_authenticated():
+		try:
+			te = Teacher.objects.get(user = request.user)
+			subjects = (subjects for subjects in te.subject_set.all())
+						
+			return render(request, 'database/teacherpage.html',{ 'teacher':te, 'subjects':subjects})
+		except Student.DoesNotExist:
+			return HttpResponse("Niema nayczyciela")
+	else:
+		return HttpResponse("Nie zalogowany")	
 	
 	
