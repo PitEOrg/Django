@@ -6,12 +6,6 @@ Email: {{student.user.email }} </br>
 <h2>Przedmioty, na ktore jestes zapisany</h2>
 <ul>
 {% for subject in subjects %}
-	<li>{{subject.name}}</li>
-{% endfor %}
-</ul>
-<h2>Twoje oceny</h2>
-<ul>
-{% for grade in grades %}
-	<li>Przedmiot: {{grade.0}}, ocena: {{grade.1}}</li>
+	<li>{{subject.name}} <a href="{% url 'studentsubject' subject.pk %}">OCENY</a></li>
 {% endfor %}
 </ul>

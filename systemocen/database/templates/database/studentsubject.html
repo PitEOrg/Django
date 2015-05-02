@@ -1,0 +1,8 @@
+<h3>{{subject.name}} - {{student.user.first_name}} {{student.user.last_name}}</h3>
+<p>
+    <ul>
+        {% for grade in grades %}
+	        <li><b>Ocena:</b> {{grade.value}} <b>Prowadzący:</b> {{grade.teacher_id.user.username}} <b>Data wstawienia:</b> {{grade.date}}</li>
+        {% endfor %}
+    </ul>
+</p>
