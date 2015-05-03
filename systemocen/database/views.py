@@ -52,10 +52,6 @@ def studentpage(request):
         try:
             st = Student.objects.get(user=request.user)
             subjects = (subjects.subject_id for subjects in st.subjectsstudents_set.all())
-            #grades = []
-            #for grade in st.grade_set.all():
-            #    grades.append([grade.subject_id.name, grade.value, grade.teacher_id])
-
             return render(request, 'database/studentpage.html', {'student': st, 'subjects': subjects})
         except Student.DoesNotExist:
             return HttpResponse("Niema studenta")
@@ -68,7 +64,6 @@ def teacherpage(request):
         try:
             te = Teacher.objects.get(user=request.user)
             subjects = (subjects for subjects in te.subject_set.all())
-
             return render(request, 'database/teacherpage.html', {'teacher': te, 'subjects': subjects})
         except Teacher.DoesNotExist:
             return HttpResponse("Nie ma nauczyciela")
@@ -95,7 +90,7 @@ def studentsubject(request, subject_id):
         try:
             st = Student.objects.get(user=request.user)
             subject = Subject.objects.get(pk=subject_id)
-            grades = (grade for grade in st.grade_set.all())
+            grades = (grade for grade in st.grade_set.all().filter(subject_id=subject.pk))
             return render(request, 'database/studentsubject.html', {'student': st, 'subject': subject, 'grades': grades})
         except Teacher.DoesNotExist:
             return HttpResponse("Nie ma nauczyciela")
