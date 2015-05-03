@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^student/$', views.studentpage, name='studentpage'),
     url(r'^teacher/$', views.teacherpage, name='teacherpage'),
     url(r'^teacher/subject/(?P<subject_id>[0-9]+)$', views.teachersubject, name='teachersubject'),
+    url(r'^teacher/subject/(?P<subject_id>[0-9]+)/student/(?P<student_id>[0-9]+)$', views.teacherstudent, name='teacherstudent'),
+    url(r'^teacher/deletegrade/$', views.teacherdeletegrade, name='teacherdeletegrade'),
+    url(r'^teacher/addgrade/$', views.teacheraddgrade, name='teacheraddgrade'),
     url(r'^student/subject/(?P<subject_id>[0-9]+)$', views.studentsubject, name='studentsubject'),
 ]
 
