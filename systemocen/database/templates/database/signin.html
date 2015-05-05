@@ -1,9 +1,24 @@
-<h1>Strona logowania</h1>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Wirtualny Dziekanat</title>
+<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
 
+<div id="member">
+<p></p>
 <form action="{% url 'signin' %}" method='post'>
 {% csrf_token %}
+    <h2>Logowanie</h2>
+    <label>Login</label>
+    <label>Hasło</label>
 	<input type="text" name="username" />
 	<input type="password" name="password" />
 	<input type="hidden" name="step" value="1" />
-	<input type="submit" value="Zaloguj" />
+    <input type="submit" name="button" class="login" value="" title="login" />
 </form>
+</div>
+
+</body>
+</html>

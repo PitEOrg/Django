@@ -1,0 +1,78 @@
+/* CSS Document */
+body{
+	padding:0;
+	margin:15px 15px 26px 15px;
+	background-color: rgba(47, 46, 45, 0.89);
+	color:#ffffff;
+	font-family:"Calibri";
+}
+div, p, li, form, h2, img, textarea, h3{
+	padding:0; margin:0;
+	}
+ul{
+	list-style-type:none;
+	}
+span{
+    color:navajowhite;
+    font-weight: bolder;
+}
+a{
+    color:darkred;
+}
+table{
+    border:solid 0px;
+    border-collapse: collapse;
+}
+td, th{
+    width: 200px;
+    border: solid 0px;
+}
+.title{
+    color:navajowhite;
+    font-weight:bold;
+    font-size: 50px;
+}
+
+.subjects{
+    color:navajowhite;
+    font-weight:bold;
+    font-size: 25px;
+}
+/*---------------main body------------*/
+#mainBody{
+	width:733px; margin:0 auto; font-size:0;
+	}
+/*---------------------------left side--------------*/
+#leftPan{
+	width:542px; background:url(images/header_pic.jpg) no-repeat 0 0; padding:25px 0 0 0; font-size:0; float:left;
+	}
+/*----------------member login---------*/
+#member{
+	width:352px; margin:0; background-color:#faf8f2; color:#ffffff; padding:0; font-size:0;
+	}
+#member p{
+	background:url(images/form_top.gif) no-repeat left top #FDFDFE; color:#313131; height:14px; width:352px; display:block;
+	}
+#member p.buttom{
+	background:url(images/form_buttom.gif) no-repeat left bottom #FDFDFE; color:#313131; height:14px; width:352px; display:block;
+	}
+#member form{
+	width:323px; padding:0px 0 0 27px; font-size:0; height:84px;
+	margin:0;
+	}
+#member form h2{
+	background:url(images/member_icon.gif) no-repeat 0 4px #FDFDFE; font:normal 18px/16px Arial, Helvetica, sans-serif;
+	color:#704F01; padding:0 0 0 19px; width:150px; display:block; height:22px; margin:0; text-indent:0px;
+	}
+#member form label{
+	font-size:10px; line-height:14px; color:#313131; text-transform:uppercase; background-color:#FDFDFE; display:block; 
+	float:left; padding:0 126px 0 0
+	}
+#member form input{
+	background:url(images/input_box.gif) no-repeat 0 0 #E9DFC6; color:#000000; border:none; float:left; height:22px; 
+	padding:0 1px 0 1px; display:block; width:140px; margin:4px 16px 0 0;
+	}
+#member form input.login{
+	background:url(images/login_bu.gif) no-repeat 0 0; float:left; margin:7px 0 0 263px; width:40px; height:15px;
+	cursor:pointer; border:none; font-size:0; 
+	}

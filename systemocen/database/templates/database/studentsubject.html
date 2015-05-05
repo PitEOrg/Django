@@ -1,8 +1,19 @@
-<h3>{{subject.name}} - {{student.user.first_name}} {{student.user.last_name}}</h3>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Wirtualny Dziekanat</title>
+<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="title">{{subject.name}} - {{student.user.first_name}} {{student.user.last_name}}</p>
 <p>
-    <ul>
+    <table>
+    <tr><td><span>Ocena</span></td><td><span>Prowadzący</span></td><td><span>Data wstawienia</span></td></tr>
         {% for grade in grades %}
-	        <li><b>Ocena:</b> {{grade.value}} <b>Prowadzący:</b> {{grade.teacher_id.user.username}} <b>Data wstawienia:</b> {{grade.date}}</li>
+	        <tr> <td>{{grade.value}}</td>  <td>{{grade.teacher_id.user.username}}</td>  <td>{{grade.date}}</td> </tr>
         {% endfor %}
-    </ul>
+    </table>
 </p>
+
+</body>

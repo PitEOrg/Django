@@ -1,11 +1,23 @@
-<h1>{{student.user.username}}</h1>
-<h2>Twoje dane</h2>
-Imie: {{student.user.first_name}} </br>
-Nazwosko: {{student.user.last_name}} </br>
-Email: {{student.user.email }} </br>
-<h2>Przedmioty, na ktore jestes zapisany</h2>
-<ul>
-{% for subject in subjects %}
-	<li>{{subject.name}} <a href="{% url 'studentsubject' subject.pk %}">OCENY</a></li>
-{% endfor %}
-</ul>
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Wirtualny Dziekanat</title>
+<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <p class = title>{{student.user.username}}</p>
+    <ul>
+        <li><span>Imię:</span> {{student.user.first_name}}</li>
+        <li><span>Nazwisko:</span> {{student.user.last_name}}</li>
+        <li><span>Email:</span> {{student.user.email }} </li>
+    </ul>
+    <p class="subjects">Przedmioty, na które jesteś zapisany:</p>
+    <ul>
+    {% for subject in subjects %}
+        <li>{{subject.name}} <a href="{% url 'studentsubject' subject.pk %}">OCENY</a></li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
