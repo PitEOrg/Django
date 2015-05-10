@@ -1,4 +1,7 @@
-from django.conf.urls import url
+
+from django.conf.urls import patterns, include, url
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -12,5 +15,6 @@ urlpatterns = [
     url(r'^teacher/deletegrade/$', views.teacherdeletegrade, name='teacherdeletegrade'),
     url(r'^teacher/addgrade/$', views.teacheraddgrade, name='teacheraddgrade'),
     url(r'^student/subject/(?P<subject_id>[0-9]+)$', views.studentsubject, name='studentsubject'),
-]
+     
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

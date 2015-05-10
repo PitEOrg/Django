@@ -12,7 +12,7 @@
 
 <div class="container">
   <h2>{{student.user.first_name}} {{student.user.last_name}}</h2>  
-   <img src="{{student.picture.url}}" class="img-rounded" width="150" >
+   <img src="{{student.picture.url}}" class="img-rounded" width="304" >
   <table class="table table-hover">
     <thead>
       <tr>
