@@ -1,23 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Wirtualny Dziekanat</title>
-<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+  <title>Panel Studenta</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-    <p class = title>{{student.user.username}}</p>
-    <ul>
-        <li><span>Imię:</span> {{student.user.first_name}}</li>
-        <li><span>Nazwisko:</span> {{student.user.last_name}}</li>
-        <li><span>Email:</span> {{student.user.email }} </li>
-    </ul>
-    <p class="subjects">Przedmioty, na które jesteś zapisany:</p>
-    <ul>
+
+<div class="container">
+  <h2>{{student.user.first_name}} {{student.user.last_name}}</h2>  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nazwa przedmiotu</th>
+        <th>Operacje</th>
+      </tr>
+    </thead>
+    <tbody>
     {% for subject in subjects %}
-        <li>{{subject.name}} <a href="{% url 'studentsubject' subject.pk %}">OCENY</a></li>
+        <tr><td>{{subject.name}}</td><td> <a href="{% url 'studentsubject' subject.pk %}" class="btn btn-info" role="button">ZOBACZ OCENY</td></tr>
     {% endfor %}
-    </ul>
+    </tbody>
+  </table>
+</div>
 
 </body>
 </html>
+

@@ -1,17 +1,29 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Wirtualny Dziekanat</title>
-<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+  <title>Wirtualny dziekanat - Panel nauczyciela</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-<p class="title">{{subject.name}} - {{teacher.user.first_name}} {{teacher.user.last_name}}</p>
-<p>
-    <table>
-    	<tr><td><span>Imie i Nazwisko</span></td><td><span>Ocena</span></td><td><span>Data</span></td><tr>
-        {% for grade in grades %}
-	        <tr>
+
+<div class="container">
+  <h2>Nazwa przedmiotu: {{subject.name}}</br>Student: {{student.user.first_name}} {{student.user.last_name}}</h2>  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Imie i Nazwisko</th>
+        <th>Ocena</th>
+        <th>Data wpisania</th>
+        <th>Operacje</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for grade in grades %}
+        <tr>
 	        	<td>{{student.user.first_name}} {{student.user.last_name}}</td>
 	        	<td><b>{{grade.value}}</b></td>
 	        	<td>{{grade.date}}</td>
@@ -19,13 +31,16 @@
 	        		<form action="{% url 'teacherdeletegrade' %}" method='post'>
 				    {% csrf_token %}
 					<input type="hidden" name="grade_id" value="{{grade.pk}}" />
-					<input type="submit" value="Usuń" />
+					<input type="submit" value="Usuń"  class="btn btn-warning" role="button"/>
 				</form>
 	        	</td>
 	        </tr>
-        {% endfor %}
-    </table>
-    <p class="subjects">Dodaj ocenę</p>
+    {% endfor %}
+    </tbody>
+  </table>
+
+<div class="panel-footer">
+<p class="subjects">Dodaj ocenę</p>
     <form action="{% url 'teacheraddgrade' %}" method='post'>
 	{% csrf_token %}
 	<select name="grade_value">
@@ -44,5 +59,8 @@
     </form>
     
 </p>
-
+</div>
+</div>
 </body>
+</html>
+

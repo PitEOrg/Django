@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Wirtualny Dziekanat</title>
+<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<p class="title">{{subject.name}} - {{teacher.user.first_name}} {{teacher.user.last_name}}</p>
+<p>
+    <table>
+    	<tr><td><span>Imie i Nazwisko</span></td><td><span>Ocena</span></td><td><span>Data</span></td><tr>
+        {% for grade in grades %}
+	        <tr>
+	        	<td>{{student.user.first_name}} {{student.user.last_name}}</td>
+	        	<td><b>{{grade.value}}</b></td>
+	        	<td>{{grade.date}}</td>
+	        	<td>
+	        		<form action="{% url 'teacherdeletegrade' %}" method='post'>
+				    {% csrf_token %}
+					<input type="hidden" name="grade_id" value="{{grade.pk}}" />
+					<input type="submit" value="Usuń" />
+				</form>
+	        	</td>
+	        </tr>
+        {% endfor %}
+    </table>
+    <p class="subjects">Dodaj ocenę</p>
+    <form action="{% url 'teacheraddgrade' %}" method='post'>
+	{% csrf_token %}
+	<select name="grade_value">
+		<option>5.0</option>
+		<option>4.5</option>
+		<option>4.0</option>
+		<option>3.5</option>
+		<option>3.0</option>
+		<option>2.5</option>
+		<option>2.0</option>
+	</select>
+	
+	<input type="hidden" name="subject_id" value="{{subject.pk}}" />
+	<input type="hidden" name="student_id" value="{{student.pk}}" />
+	<input type="submit" value="Dodaj" />
+    </form>
+    
+</p>
+
+</body>

@@ -1,24 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Wirtualny Dziekanat</title>
-<link href="/static/database/style.css" rel="stylesheet" type="text/css" />
+  <title>Wirtualny Dziekanat - Logowanie</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<div id="member">
-<p></p>
-<form action="{% url 'signin' %}" method='post'>
+<div class="container">
+  <h2>Wirtualny Dziekanat - Logowanie</h2>
+ <form action="{% url 'signin' %}" method='post' role="form">
 {% csrf_token %}
-    <h2>Logowanie</h2>
-    <label>Login</label>
-    <label>Hasło</label>
-	<input type="text" name="username" />
-	<input type="password" name="password" />
-	<input type="hidden" name="step" value="1" />
-    <input type="submit" name="button" class="login" value="" title="login" />
-</form>
+    <div class="form-group">
+      <label for="username">Login:</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Wpisz login"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Hasło:</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Wpisz hasło"/>
+    </div>
+    <input type="hidden" name="step" value="1" />
+    <button type="submit" class="btn btn-default">ZALOGUJ</button>
+  </form>
 </div>
 
 </body>
 </html>
+
