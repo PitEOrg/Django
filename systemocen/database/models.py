@@ -43,4 +43,12 @@ class Grade(models.Model):
 
     def __str__(self):
         return self.value + ' ' + self.student_id.user.username + ' ' + self.subject_id.name
+        
+class Message(models.Model):
+    student_id = models.ForeignKey(Student)
+    teacher_id = models.ForeignKey(Teacher)
+    contents = models.CharField(max_length = 400)
+    is_read = models.BooleanField()
+    date = models.DateTimeField()
+    
 	

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
-from .models import Student, Teacher, Subject, SubjectsStudents, Grade
+from .models import Student, Teacher, Subject, SubjectsStudents, Grade, Message
 
 
 def index(request):
@@ -26,7 +26,7 @@ def signin(request):
                     login(request, user)
                     try:
                         student = Student.objects.get(user=request.user)
-                        return HttpResponseRedirect(reverse('studentpage'))
+                        return HttpResponseRedirect(reverse('studentpage',kwargs={'page_id':'0'}))
                     except Student.DoesNotExist:
                         try:
                             teacher = Teacher.objects.get(user=request.user)
@@ -48,14 +48,22 @@ def testpage(request):
         return HttpResponse("Nie zalogowany")
 
 
-def studentpage(request):
+def studentpage(request, page_id):
     if request.user.is_authenticated():
         try:
             st = Student.objects.get(user=request.user)
             subjects = (subjects.subject_id for subjects in st.subjectsstudents_set.all())
-            return render(request, 'database/studentpage.html', {'student': st, 'subjects': subjects})
+            if(request.POST.get('message_id', False)):
+                messageToMarkRead = Message.objects.filter(student_id = st).filter(is_read = False).get(pk = request.POST.get('message_id', False))
+                messageToMarkRead.is_read = True
+                messageToMarkRead.save()    
+            messages = Message.objects.filter(student_id = st).filter(is_read = False).order_by('-date')
+            allMessages = Message.objects.filter(student_id = st).order_by('-date')
+            return render(request, 'database/studentpage.html', {'student': st, 'subjects': subjects, 'messages':messages, 'all_messages' : allMessages ,'page_id':page_id})
         except Student.DoesNotExist:
             return HttpResponse("Niema studenta")
+        except Message.DoesNotExist:
+            return HttpResponse("Wiadomosc nie istnieje")
     else:
         return HttpResponse("Nie zalogowany")
 
