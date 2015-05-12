@@ -100,7 +100,7 @@
     					<form action="{% url 'studentpage' '2' %}" method='post'>
 						{% csrf_token %}
 						<input type="hidden" name="message_id" value="{{message.pk}}" />
-						<input type="submit" value="Oznacz jako przeczytane"  class="btn btn-info" role="button"/>
+						<input type="submit" value="Oznacz jako przeczytane"  class="btn btn-danger" role="button"/>
 						</form>
   			 		 </div>
   			 		 {% endif %}

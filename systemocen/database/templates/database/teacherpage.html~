@@ -35,7 +35,9 @@
     <tbody>
     
     {% for subSubject in subSubjects %}
-        <tr><td>{{subSubject.subject_id.name}} - </td><td> <a href="{% url 'teachersubject' subSubject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
+    {% with subSubject.subject_type as cos%}
+        <tr><td>{{subSubject.subject_id.name}} - {{getSubsubjectName.1}}</td><td> <a href="{% url 'teachersubject' subSubject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
+	 {% endwith %}
     {% endfor %}
     </tbody>
   </table>

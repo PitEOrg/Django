@@ -66,16 +66,23 @@ def studentpage(request, page_id):
             return HttpResponse("Wiadomosc nie istnieje")
     else:
         return HttpResponse("Nie zalogowany")
-
+       
+def getSubsubjectName(id):
+	subjectsNames = {'1':'Wyklad','2':'Cwiczenia','3':'Labolatorium'}
+	return subjectsNames[id]
+        
 
 def teacherpage(request):
     if request.user.is_authenticated():
         try:
             te = Teacher.objects.get(user=request.user)
             subjects = (subjects for subjects in te.subject_set.all())
-            return render(request, 'database/teacherpage.html', {'teacher': te, 'subjects': subjects})
-        except Teacher.DoesNotExist:
-            return HttpResponse("Nie ma nauczyciela")
+            subSubjects = (subSubjects for subSubjects in te.subsubject_set.all())
+            subjectsNames = ['Wyklad','Cwiczenia','Labolatorium']
+       
+    			
+            return render(request, 'database/teacherpage.html', {'teacher': te, 'subjects': subjects, 'subSubjects' : subSubjects, 'subjectsNames' : subjectsNames, 'getSubsubjectName' : getSubsubjectName})
+        except Teacher.DoesNotExist:            return HttpResponse("Nie ma nauczyciela")
     else:
         return HttpResponse("Niezalogowany")
 

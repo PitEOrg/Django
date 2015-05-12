@@ -95,13 +95,15 @@
     					{% endif %}
    					 <div class="panel-heading">Od: <b>{{message.teacher_id.user.first_name}} {{message.teacher_id.user.last_name}}</b> Data: <b>{{message.date}}</b></div>
    				 <div class="panel-body">{{message.contents}}</div>
+   				 {% if message.is_read == False %}
    				 <div class="panel-footer">
     					<form action="{% url 'studentpage' '2' %}" method='post'>
 						{% csrf_token %}
 						<input type="hidden" name="message_id" value="{{message.pk}}" />
-						<input type="submit" value="Oznacz jako przeczytane"  class="btn btn-info" role="button"/>
+						<input type="submit" value="Oznacz jako przeczytane"  class="btn btn-warning" role="button"/>
 						</form>
   			 		 </div>
+  			 		 {% endif %}
  						 </div>
 					  {% endfor %}
         	{% elif page_id == '3' %}
