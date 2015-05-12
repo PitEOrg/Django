@@ -11,6 +11,119 @@
 <body>
 
 <div class="container">
+	<div class="page-header">
+		{% if page_id == '0' %}
+			<h1>Wirtualny dziekanat - Strona główna</h1>
+        	{% elif page_id == '1' %}
+			<h1>Wirtualny dziekanat - Prowadzone przedmioty</h1>
+        	{% elif page_id == '2' %}
+			<h1>Wirtualny dziekanat - Wiadomości</h1>
+        	{% elif page_id == '3' %}
+			<h1>Wirtualny dziekanat - Twoje dane</h1>
+        	{% endif %}
+
+	</div>
+      	<div class="row">
+    		<div class="col-md-2">
+      			<ul class="nav nav-pills nav-stacked">
+      				{% if page_id == '0' %}
+        			<li class="active"><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
+        			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
+        			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
+        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+        			{% elif page_id == '1' %}
+        			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
+        			<li  class="active" ><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
+        			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
+        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+        			{% elif page_id == '2' %}
+        			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
+        			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
+        			<li   class="active" ><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
+        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+        			{% elif page_id == '3' %}
+        			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
+        			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
+        			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
+        			<li class="active" ><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+        			{% endif %}
+      			</ul>
+   		    </div>
+   		    <div class="col-md-10">
+                {% if page_id == '0' %}
+                    <h2>Witaj {{teacher.user.first_name}} {{teacher.user.last_name}}</h2>
+
+                {% elif page_id == '1' %}
+                   <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Prowadzone przedmioty</th>
+                        <th>Szczegóły</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for subject in subjects %}
+                        <tr><td>{{subject.name}}</td><td> <a href="{% url 'teachersubject' subject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                    <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Prowadzone zajęcia</th>
+                        <th>Szczegóły</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for subSubject in subSubjects %}
+                        <tr><td>{{subSubject.subject_id.name}} - </td><td> <a href="{% url 'teachersubject' subSubject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                {% elif page_id == '2' %}
+                <h2>Wiadomości</h2>
+                    {% for message in all_messages %}
+                    {% if message.is_read == False %}
+                        <div class="panel panel-danger">
+                    {% else %}
+                        <div class="panel panel-info">
+                    {% endif %}
+                    <div class="panel-heading">Do: <b>{{message.student_id.user.first_name}} {{message.student_id.user.last_name}}</b> Data: <b>{{message.date}}</b></div>
+                    <div class="panel-body">{{message.contents}}</div>
+                    {% if message.is_read == False %}
+                        <div class="panel-footer">
+                            <form action="{% url 'teacherpage' '2' %}" method='post'>
+                                {% csrf_token %}
+                                <input type="hidden" name="message_id" value="{{message.pk}}" />
+                                <input type="submit" value="Oznacz jako przeczytane"  class="btn btn-info" role="button"/>
+                            </form>
+                        </div>
+                    {% endif %}
+                        </div>
+                        {% endfor %}
+                    {% elif page_id == '3' %}
+                        <p>Imie: {{teacher.user.first_name}}</p>
+                        <p>Nazwisko: {{teacher.user.last_name}}</p>
+                        <p>Nazwa użytkownika:  {{teacher.user.username}}</p>
+                        <p>Email:  {{teacher.user.email}}</p>
+                        <p>Zdjęcie: </p>
+                        <img src="{{teacher.picture.url}}" class="img-rounded" width="150" >
+                    {% endif %}
+                    </div>
+            </div>
+</div>
+</div>
+
+</body>
+</html>
+
+<!--
+<div class="container">
   <h2>{{teacher.user.first_name}} {{teacher.user.last_name}}</h2>  
   <table class="table table-hover">
     <thead>
@@ -40,7 +153,6 @@
     </tbody>
   </table>
 </div>
+-->
 
-</body>
-</html>
 

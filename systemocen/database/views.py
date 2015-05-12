@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from .models import Student, Teacher, Subject, SubjectsStudents, Grade, Message
 
@@ -30,7 +30,7 @@ def signin(request):
                     except Student.DoesNotExist:
                         try:
                             teacher = Teacher.objects.get(user=request.user)
-                            return HttpResponseRedirect(reverse('teacherpage'))
+                            return HttpResponseRedirect(reverse('teacherpage', kwargs={'page_id':'0'}))
                         except Teacher.DoesNotExist:
                             return HttpResponse('Konto nie prydzielone')
                 else:
@@ -72,17 +72,27 @@ def getSubsubjectName(id):
 	return subjectsNames[id]
         
 
-def teacherpage(request):
+def teacherpage(request, page_id):
     if request.user.is_authenticated():
         try:
             te = Teacher.objects.get(user=request.user)
             subjects = (subjects for subjects in te.subject_set.all())
             subSubjects = (subSubjects for subSubjects in te.subsubject_set.all())
             subjectsNames = ['Wyklad','Cwiczenia','Labolatorium']
-       
-    			
-            return render(request, 'database/teacherpage.html', {'teacher': te, 'subjects': subjects, 'subSubjects' : subSubjects, 'subjectsNames' : subjectsNames, 'getSubsubjectName' : getSubsubjectName})
-        except Teacher.DoesNotExist:            return HttpResponse("Nie ma nauczyciela")
+
+            if (request.POST.get('message_id', False)):
+                messageToMarkRead = Message.objects.filter(teacher_id=te).filter(is_read=False).get(
+                    pk=request.POST.get('message_id', False))
+                messageToMarkRead.is_read = True
+                messageToMarkRead.save()
+            messages = Message.objects.filter(teacher_id=te).filter(is_read=False).order_by('-date')
+            allMessages = Message.objects.filter(teacher_id=te).order_by('-date')
+
+            return render(request, 'database/teacherpage.html',
+                          {'teacher': te, 'subjects': subjects, 'messages': messages, 'all_messages': allMessages,
+                           'page_id': page_id, 'subSubjects' : subSubjects, 'subjectsNames' : subjectsNames, 'getSubsubjectName' : getSubsubjectName})
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma nauczyciela")
     else:
         return HttpResponse("Niezalogowany")
 
@@ -185,3 +195,7 @@ def studentsubject(request, subject_id):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'database/signin.html')

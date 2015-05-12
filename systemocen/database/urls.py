@@ -8,8 +8,9 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^signin/$', views.signin, name='signin'),
+    url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^student/(?P<page_id>[0-9]+)$', views.studentpage, name='studentpage'),
-    url(r'^teacher/$', views.teacherpage, name='teacherpage'),
+    url(r'^teacher/(?P<page_id>[0-9]+)$', views.teacherpage, name='teacherpage'),
     url(r'^teacher/subject/(?P<subject_id>[0-9]+)$', views.teachersubject, name='teachersubject'),
     url(r'^teacher/subject/(?P<subject_id>[0-9]+)/student/(?P<student_id>[0-9]+)$', views.teacherstudent, name='teacherstudent'),
     url(r'^teacher/deletegrade/$', views.teacherdeletegrade, name='teacherdeletegrade'),

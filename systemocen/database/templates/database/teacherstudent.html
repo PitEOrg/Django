@@ -43,7 +43,7 @@
 <p class="subjects">Dodaj ocenę</p>
     <form action="{% url 'teacheraddgrade' %}" method='post'>
 	{% csrf_token %}
-	<select name="grade_value">
+	<select name="grade_value" class="form-control">
 		<option>5.0</option>
 		<option>4.5</option>
 		<option>4.0</option>

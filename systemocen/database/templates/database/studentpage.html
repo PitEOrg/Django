@@ -31,21 +31,25 @@
         			<li><a href="{% url 'studentpage' '1'%}">Oceny</a></li>
         			<li><a href="{% url 'studentpage' '2'%}">Wiadomości</a></li>
         			<li><a href="{% url 'studentpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% elif page_id == '1' %}
         			<li><a href="{% url 'studentpage' '0'%}">Strona główna</a></li>
         			<li  class="active" ><a href="{% url 'studentpage' '1'%}">Oceny</a></li>
         			<li><a href="{% url 'studentpage' '2'%}">Wiadomości</a></li>
         			<li><a href="{% url 'studentpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% elif page_id == '2' %}
         			<li><a href="{% url 'studentpage' '0'%}">Strona główna</a></li>
         			<li><a href="{% url 'studentpage' '1'%}">Oceny</a></li>
         			<li   class="active" ><a href="{% url 'studentpage' '2'%}">Wiadomości</a></li>
         			<li><a href="{% url 'studentpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% elif page_id == '3' %}
         			<li><a href="{% url 'studentpage' '0'%}">Strona główna</a></li>
         			<li><a href="{% url 'studentpage' '1'%}">Oceny</a></li>
         			<li><a href="{% url 'studentpage' '2'%}">Wiadomości</a></li>
         			<li class="active" ><a href="{% url 'studentpage' '3'%}">Twoje dane</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% endif %}
       			</ul>
    		</div>
