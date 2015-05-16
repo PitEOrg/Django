@@ -11,7 +11,7 @@
 <body>
 
 <div class="container">
-  <h2>Nazwa przedmiotu: {{subject.name}}</h2>  
+  <h2>Nazwa zajęć: {{subsubject}}</h2>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -21,7 +21,7 @@
     </thead>
     <tbody>
         {% for student in students %}
-	        <tr><td>{{student.user.first_name}} {{student.user.last_name}}</td><td><a href="{%url 'teacherstudent' subject.pk student.pk %}" class="btn btn-info" role="button">SZCZEGÓŁY</a></td></tr>
+	        <tr><td>{{student.user.first_name}} {{student.user.last_name}}</td><td><a href="{%url 'subteacherstudent' subsubject.pk student.pk %}" class="btn btn-info" role="button">SZCZEGÓŁY</a></td></tr>
         {% endfor %}
     </tbody>
   </table>

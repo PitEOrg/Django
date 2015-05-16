@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
-from .models import Student, Teacher, Subject, SubjectsStudents, Grade, Message
+from .models import Student, Teacher, Subject, SubjectsStudents, Grade, Message, SubSubject, SubGrade
 
 
 def index(request):
@@ -98,7 +98,7 @@ def teachersubject(request, subject_id):
             te = Teacher.objects.get(user=request.user)
             subject = Subject.objects.get(pk=subject_id)
             if subject.teacher_id != te:
-            	return HttpResponse("Nie prowadzisz tego przedmiotu")
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
             students = (subjects.student_id for subjects in subject.subjectsstudents_set.all())
             return render(request, 'database/teachersubject.html', {'teacher': te, 'subject': subject, 'students': students})
         except Teacher.DoesNotExist:
@@ -107,18 +107,36 @@ def teachersubject(request, subject_id):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
-        
+
+
+def teachersubsubject(request, subsubject_id):
+    if request.user.is_authenticated():
+        try:
+            te = Teacher.objects.get(user=request.user)
+            subsubject = SubSubject.objects.get(pk=subsubject_id)
+            if subsubject.teacher_id != te:
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
+            students = (subsubjects.student_id for subsubjects in subsubject.subject_id.subjectsstudents_set.all())
+            return render(request, 'database/teachersubsubject.html', {'teacher': te, 'subsubject': subsubject, 'students': students})
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma nauczyciela")
+        except Subject.DoesNotExist:
+            return HttpResponse("Brak przedmiotu")
+    else:
+        return HttpResponse("Niezalogowany")
+
+
 def teacherstudent(request, subject_id, student_id):
     if request.user.is_authenticated():
         try:
             te = Teacher.objects.get(user=request.user)
             subject = Subject.objects.get(pk=subject_id)
             if subject.teacher_id != te:
-            	return HttpResponse("Nie prowadzisz tego przedmiotu")
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
             st = Student.objects.get(pk=student_id)
             if SubjectsStudents.objects.filter(student_id = st.pk).filter(subject_id = subject.pk):
-           	grades = (grade for grade in st.grade_set.all().filter(subject_id = subject.pk))
-            	return render(request, 'database/teacherstudent.html', {'teacher': te, 'subject': subject, 'student': st, 'grades': grades})
+                grades = (grade for grade in st.grade_set.all().filter(subject_id = subject.pk))
+            return render(request, 'database/teacherstudent.html', {'teacher': te, 'subject': subject, 'student': st, 'grades': grades})
         except Student.DoesNotExist:
             return HttpResponse("Dany student nie istnieje")
         except SubjectsStudents.DoesNotExist:
@@ -129,6 +147,26 @@ def teacherstudent(request, subject_id, student_id):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
+
+
+def subteacherstudent(request, subsubject_id, student_id):
+    if request.user.is_authenticated():
+        try:
+            te = Teacher.objects.get(user=request.user)
+            subsubject = SubSubject.objects.get(pk=subsubject_id)
+            if subsubject.teacher_id != te:
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
+            st = Student.objects.get(pk=student_id)
+            if SubjectsStudents.objects.filter(student_id = st.pk).filter(subject_id = subsubject.subject_id):
+                subgrades = (subgrade for subgrade in st.subgrade_set.all().filter(sub_subject_id = subsubject.pk))
+            return render(request, 'database/subteacherstudent.html', {'teacher': te, 'subsubject': subsubject, 'student': st, 'subgrades': subgrades})
+        except Student.DoesNotExist:
+            return HttpResponse("Dany student nie istnieje")
+        except SubjectsStudents.DoesNotExist:
+            return HttpResponse("Student nie jest zapisany na ten przedmiot")
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma nauczyciela")
+
         
 def teacherdeletegrade(request):
     if request.user.is_authenticated():
@@ -137,7 +175,7 @@ def teacherdeletegrade(request):
             te = Teacher.objects.get(user=request.user)
             subject = grade.subject_id
             if subject.teacher_id != te:
-            	return HttpResponse("Nie prowadzisz tego przedmiotu")
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
             grade.delete()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except Grade.DoesNotExist:
@@ -150,21 +188,22 @@ def teacherdeletegrade(request):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
-        
+
+
 def teacheraddgrade(request):
     if request.user.is_authenticated():
         try:
             grade_value = request.POST['grade_value']
             if grade_value != '2.0' and grade_value != '2.5' and grade_value != '3.0' and grade_value != '3.5' and grade_value != '4.0' and grade_value != '4.5' and grade_value != '5.0':
-            	return HttpResponse("Zla ocena")
+                return HttpResponse("Zla ocena")
             te = Teacher.objects.get(user=request.user)
             subject = Subject.objects.get(pk = request.POST['subject_id'])
             if subject.teacher_id != te:
-            	return HttpResponse("Nie prowadzisz tego przedmiotu")
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
             st = Student.objects.get(pk = request.POST['student_id'])
             if SubjectsStudents.objects.filter(student_id = st.pk).filter(subject_id = subject.pk):
-            	gr = Grade(student_id = st, date = timezone.now(), subject_id = subject, value = grade_value, teacher_id = te)
-            	gr.save()
+                gr = Grade(student_id = st, date = timezone.now(), subject_id = subject, value = grade_value, teacher_id = te)
+                gr.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except Student.DoesNotExist:
             return HttpResponse("Dany student nie istnieje")
@@ -176,6 +215,56 @@ def teacheraddgrade(request):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
+
+
+def teacherdeletesubgrade(request):
+    if request.user.is_authenticated():
+        try:
+            subgrade = SubGrade.objects.get(pk=request.POST['subgrade_id'])
+            te = Teacher.objects.get(user=request.user)
+            subsubject = subgrade.sub_subject_id
+            if subsubject.teacher_id != te:
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
+            subgrade.delete()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except SubGrade.DoesNotExist:
+            return HttpResponse("Ocena nie istnieje")
+        except SubjectsStudents.DoesNotExist:
+            return HttpResponse("Student nie jest zapisany na ten przedmiot")
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma nauczyciela")
+        except SubSubject.DoesNotExist:
+            return HttpResponse("Brak przedmiotu")
+    else:
+        return HttpResponse("Niezalogowany")
+
+
+def teacheraddsubgrade(request):
+    if request.user.is_authenticated():
+        try:
+            grade_value = request.POST['grade_value']
+            if grade_value != '2.0' and grade_value != '2.5' and grade_value != '3.0' and grade_value != '3.5' and grade_value != '4.0' and grade_value != '4.5' and grade_value != '5.0':
+                return HttpResponse("Zla ocena")
+            te = Teacher.objects.get(user=request.user)
+            subsubject = SubSubject.objects.get(pk = request.POST['subsubject_id'])
+            if subsubject.teacher_id != te:
+                return HttpResponse("Nie prowadzisz tego przedmiotu")
+            st = Student.objects.get(pk = request.POST['student_id'])
+            if SubjectsStudents.objects.filter(student_id = st.pk).filter(subject_id = subsubject.subject_id.pk):
+                subgrade = SubGrade(student_id = st, date = timezone.now(), sub_subject_id = subsubject, value = grade_value, teacher_id = te)
+                subgrade.save()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except Student.DoesNotExist:
+            return HttpResponse("Dany student nie istnieje")
+        except SubjectsStudents.DoesNotExist:
+            return HttpResponse("Student nie jest zapisany na ten przedmiot")
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma nauczyciela")
+        except Subject.DoesNotExist:
+            return HttpResponse("Brak przedmiotu")
+    else:
+        return HttpResponse("Niezalogowany")
+
 
 def studentsubject(request, subject_id):
     if request.user.is_authenticated():
@@ -190,6 +279,7 @@ def studentsubject(request, subject_id):
             return HttpResponse("Brak przedmiotu")
     else:
         return HttpResponse("Niezalogowany")
+
 
 def logout_view(request):
     logout(request)

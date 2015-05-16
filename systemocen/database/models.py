@@ -34,7 +34,7 @@ class SubSubjectType(models.Model):
 class SubSubject(models.Model):
     subject_id = models.ForeignKey(Subject)
     teacher_id = models.ForeignKey(Teacher)
-    subsubjecttype_id = models.ForeignKey(SubSubjectType,default=0)
+    subsubjecttype_id = models.ForeignKey(SubSubjectType, default=0)
 
     def __str__(self):
         return self.subject_id.name + ' - ' + self.subsubjecttype_id.name
@@ -57,26 +57,22 @@ class Grade(models.Model):
 
     def __str__(self):
         return self.value + ' ' + self.student_id.user.username + ' ' + self.subject_id.name
-        
+
+
 class SubGrade(models.Model):
     student_id = models.ForeignKey(Student)
     teacher_id = models.ForeignKey(Teacher)
     sub_subject_id = models.ForeignKey(SubSubject)
     value = models.CharField(max_length=3)
     date = models.DateTimeField()
-    grade_type = models.IntegerField(default = 0)
 
     def __str__(self):
-        return self.value + ' ' + self.student_id.user.username + ' ' + self.subject_id.name
-        
-        
+        return self.value + ' ' + self.student_id.user.username + ' ' + self.sub_subject_id.subject_id.name + '-' + self.sub_subject_id.subsubjecttype_id.name
 
-        
+
 class Message(models.Model):
     student_id = models.ForeignKey(Student)
     teacher_id = models.ForeignKey(Teacher)
     contents = models.CharField(max_length = 400)
     is_read = models.BooleanField()
     date = models.DateTimeField()
-    
-

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Wirtualny dziekanat - Panel nauczyciela</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Nazwa zajec: {{subsubject}}</br>Student: {{student.user.first_name}} {{student.user.last_name}}</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Imie i Nazwisko</th>
+        <th>Ocena</th>
+        <th>Data wpisania</th>
+        <th>Operacje</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for grade in subgrades %}
+        <tr>
+	        	<td>{{student.user.first_name}} {{student.user.last_name}}</td>
+	        	<td><b>{{grade.value}}</b></td>
+	        	<td>{{grade.date}}</td>
+	        	<td>
+	        		<form action="{% url 'teacherdeletesubgrade' %}" method='post'>
+				    {% csrf_token %}
+					<input type="hidden" name="subgrade_id" value="{{grade.pk}}" />
+					<input type="submit" value="Usuń"  class="btn btn-warning" role="button"/>
+				</form>
+	        	</td>
+	        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+<div class="panel-footer">
+<p class="subjects">Dodaj ocenę</p>
+    <form action="{% url 'teacheraddsubgrade' %}" method='post'>
+	{% csrf_token %}
+	<select name="grade_value" class="form-control">
+		<option>5.0</option>
+		<option>4.5</option>
+		<option>4.0</option>
+		<option>3.5</option>
+		<option>3.0</option>
+		<option>2.5</option>
+		<option>2.0</option>
+	</select>
+	
+	<input type="hidden" name="subsubject_id" value="{{subsubject.pk}}" />
+	<input type="hidden" name="student_id" value="{{student.pk}}" />
+	<input type="submit" value="Dodaj" />
+    </form>
+    
+</p>
+</div>
+</div>
+</body>
+</html>
+
