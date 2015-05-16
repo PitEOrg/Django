@@ -23,11 +23,21 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
-        
+
+
+class SubSubjectType(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
 class SubSubject(models.Model):
-	subject_id = models.ForeignKey(Subject)
-	teacher_id = models.ForeignKey(Teacher)
-	subject_type = models.IntegerField(default = 0)
+    subject_id = models.ForeignKey(Subject)
+    teacher_id = models.ForeignKey(Teacher)
+    subsubjecttype_id = models.ForeignKey(SubSubjectType,default=0)
+
+    def __str__(self):
+        return self.subject_id.name + ' - ' + self.subsubjecttype_id.name
 
 
 class SubjectsStudents(models.Model):
@@ -69,4 +79,4 @@ class Message(models.Model):
     is_read = models.BooleanField()
     date = models.DateTimeField()
     
-	
+

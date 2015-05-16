@@ -71,6 +71,7 @@
                     {% endfor %}
                     </tbody>
                   </table>
+
                     <table class="table table-hover">
                     <thead>
                       <tr>
@@ -81,7 +82,7 @@
                     <tbody>
 
                     {% for subSubject in subSubjects %}
-                        <tr><td>{{subSubject.subject_id.name}} - </td><td> <a href="{% url 'teachersubject' subSubject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
+                        <tr><td>{{subSubject}}</td><td> <a href="{% url 'teachersubject' subSubject.pk %}" class="btn btn-info" role="button" >SZCZEGÓŁY</a></td></tr>
                     {% endfor %}
                     </tbody>
                   </table>

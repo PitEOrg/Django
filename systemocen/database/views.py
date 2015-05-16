@@ -66,11 +66,7 @@ def studentpage(request, page_id):
             return HttpResponse("Wiadomosc nie istnieje")
     else:
         return HttpResponse("Nie zalogowany")
-       
-def getSubsubjectName(id):
-	subjectsNames = {'1':'Wyklad','2':'Cwiczenia','3':'Labolatorium'}
-	return subjectsNames[id]
-        
+
 
 def teacherpage(request, page_id):
     if request.user.is_authenticated():
@@ -78,7 +74,6 @@ def teacherpage(request, page_id):
             te = Teacher.objects.get(user=request.user)
             subjects = (subjects for subjects in te.subject_set.all())
             subSubjects = (subSubjects for subSubjects in te.subsubject_set.all())
-            subjectsNames = ['Wyklad','Cwiczenia','Labolatorium']
 
             if (request.POST.get('message_id', False)):
                 messageToMarkRead = Message.objects.filter(teacher_id=te).filter(is_read=False).get(
@@ -90,7 +85,7 @@ def teacherpage(request, page_id):
 
             return render(request, 'database/teacherpage.html',
                           {'teacher': te, 'subjects': subjects, 'messages': messages, 'all_messages': allMessages,
-                           'page_id': page_id, 'subSubjects' : subSubjects, 'subjectsNames' : subjectsNames, 'getSubsubjectName' : getSubsubjectName})
+                           'page_id': page_id, 'subSubjects' : subSubjects})
         except Teacher.DoesNotExist:
             return HttpResponse("Nie ma nauczyciela")
     else:
