@@ -53,13 +53,19 @@ def studentpage(request, page_id):
         try:
             st = Student.objects.get(user=request.user)
             subjects = (subjects.subject_id for subjects in st.subjectsstudents_set.all())
+            subSubjects = []
+            for subject in subjects:
+                subSubjects.extend( subject.subsubject_set.all())
+            subjects = (subjects.subject_id for subjects in st.subjectsstudents_set.all())
+
             if(request.POST.get('message_id', False)):
                 messageToMarkRead = Message.objects.filter(student_id = st).filter(is_read = False).get(pk = request.POST.get('message_id', False))
                 messageToMarkRead.is_read = True
                 messageToMarkRead.save()    
             messages = Message.objects.filter(student_id = st).filter(is_read = False).order_by('-date')
             allMessages = Message.objects.filter(student_id = st).order_by('-date')
-            return render(request, 'database/studentpage.html', {'student': st, 'subjects': subjects, 'messages':messages, 'all_messages' : allMessages ,'page_id':page_id})
+            return render(request, 'database/studentpage.html', {'student': st, 'subjects': subjects, 'messages':messages, 'all_messages' : allMessages ,
+                                                                 'page_id':page_id, 'subSubjects' : subSubjects})
         except Student.DoesNotExist:
             return HttpResponse("Niema studenta")
         except Message.DoesNotExist:
@@ -273,6 +279,20 @@ def studentsubject(request, subject_id):
             subject = Subject.objects.get(pk=subject_id)
             grades = (grade for grade in st.grade_set.all().filter(subject_id=subject.pk))
             return render(request, 'database/studentsubject.html', {'student': st, 'subject': subject, 'grades': grades})
+        except Teacher.DoesNotExist:
+            return HttpResponse("Nie ma studenta")
+        except Subject.DoesNotExist:
+            return HttpResponse("Brak przedmiotu")
+    else:
+        return HttpResponse("Niezalogowany")
+
+def studentsubsubject(request, subsubject_id):
+    if request.user.is_authenticated():
+        try:
+            st = Student.objects.get(user=request.user)
+            subsubject = SubSubject.objects.get(pk=subsubject_id)
+            grades = (grade for grade in st.subgrade_set.all().filter(sub_subject_id=subsubject.pk))
+            return render(request, 'database/studentsubject.html', {'student': st, 'subsubject': subsubject, 'grades': grades})
         except Teacher.DoesNotExist:
             return HttpResponse("Nie ma studenta")
         except Subject.DoesNotExist:

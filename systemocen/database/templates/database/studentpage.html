@@ -77,18 +77,33 @@
 				{% endif %}
         	{% elif page_id == '1' %}
 			  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nazwa przedmiotu</th>
-        <th>Operacje</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for subject in subjects %}
-        <tr><td>{{subject.name}}</td><td> <a href="{% url 'studentsubject' subject.pk %}" class="btn btn-info" role="button">ZOBACZ OCENY</a></td></tr>
-    {% endfor %}
-    </tbody>
-  </table>
+				<thead>
+				  <tr>
+					<th>Nazwa przedmiotu</th>
+					<th>Operacje</th>
+				  </tr>
+				</thead>
+				<tbody>
+				{% for subject in subjects %}
+					<tr><td>{{subject.name}}</td><td> <a href="{% url 'studentsubject' subject.pk %}" class="btn btn-info" role="button">ZOBACZ OCENY</a></td></tr>
+				{% endfor %}
+				</tbody>
+			  </table>
+			<table class="table table-hover">
+				<thead>
+				  <tr>
+					<th>Nazwa zajęć</th>
+					<th>Operacje</th>
+				  </tr>
+				</thead>
+				<tbody>
+
+				{% for subSubject in subSubjects %}
+                    <tr><td>{{subSubject}}</td><td> <a href="{% url 'studentsubsubject' subSubject.pk %}" class="btn btn-info" role="button" >ZOBACZ OCENY</a></td></tr>
+				{% endfor %}
+				</tbody>
+		  </table>
+
         	{% elif page_id == '2' %}
 			<h2>Wiadomości</h2> 
  						 {% for message in all_messages %}
