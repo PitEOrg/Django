@@ -16,9 +16,9 @@
 			<h1>Wirtualny dziekanat - Strona główna</h1>
         	{% elif page_id == '1' %}
 			<h1>Wirtualny dziekanat - Prowadzone przedmioty</h1>
-        	{% elif page_id == '2' %}
+        	{% elif page_id == '2' or  page_id == '3' or page_id == '4'%}
 			<h1>Wirtualny dziekanat - Wiadomości</h1>
-        	{% elif page_id == '3' %}
+        	{% elif page_id == '5' %}
 			<h1>Wirtualny dziekanat - Twoje dane</h1>
         	{% endif %}
 
@@ -30,25 +30,25 @@
         			<li class="active"><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
         			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
         			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
-        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+        			<li><a href="{% url 'teacherpage' '5'%}">Twoje dane</a></li>
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% elif page_id == '1' %}
         			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
         			<li  class="active" ><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
         			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
-        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+        			<li><a href="{% url 'teacherpage' '5'%}">Twoje dane</a></li>
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
-        			{% elif page_id == '2' %}
+        			{% elif page_id == '2' or  page_id == '3' or page_id == '4'%}
         			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
         			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
         			<li   class="active" ><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
-        			<li><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+        			<li><a href="{% url 'teacherpage' '5'%}">Twoje dane</a></li>
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
-        			{% elif page_id == '3' %}
+        			{% elif page_id == '5' %}
         			<li><a href="{% url 'teacherpage' '0'%}">Strona główna</a></li>
         			<li><a href="{% url 'teacherpage' '1'%}">Prowadzone przedmioty</a></li>
         			<li><a href="{% url 'teacherpage' '2'%}">Wiadomości</a></li>
-        			<li class="active" ><a href="{% url 'teacherpage' '3'%}">Twoje dane</a></li>
+        			<li class="active" ><a href="{% url 'teacherpage' '5'%}">Twoje dane</a></li>
                     <li><a href="{% url 'logout' %}">Wyloguj</a></li>
         			{% endif %}
       			</ul>
@@ -87,27 +87,69 @@
                     </tbody>
                   </table>
                 {% elif page_id == '2' %}
-                <h2>Wiadomości</h2>
-                    {% for message in all_messages %}
-                    {% if message.is_read == False %}
-                        <div class="panel panel-danger">
-                    {% else %}
-                        <div class="panel panel-info">
-                    {% endif %}
-                    <div class="panel-heading">Do: <b>{{message.student_id.user.first_name}} {{message.student_id.user.last_name}}</b> Data: <b>{{message.date}}</b></div>
-                    <div class="panel-body">{{message.contents}}</div>
-                    {% if message.is_read == False %}
-                        <div class="panel-footer">
-                            <form action="{% url 'teacherpage' '2' %}" method='post'>
-                                {% csrf_token %}
-                                <input type="hidden" name="message_id" value="{{message.pk}}" />
-                                <input type="submit" value="Oznacz jako przeczytane"  class="btn btn-info" role="button"/>
-                            </form>
-                        </div>
-                    {% endif %}
-                        </div>
-                        {% endfor %}
-                    {% elif page_id == '3' %}
+                
+                <ul class="pagination">
+  						<li class="active" ><a href="{% url 'teacherpage' '2'%}">Wysłane</a></li>
+ 						<li><a href="{% url 'teacherpage' '3'%}">Nie potwierdzone</a></li>
+  						<li><a href="{% url 'teacherpage' '4'%}">Wyślij</a></li>
+						</ul>
+ 						 {% for message in allMessages %}
+    					<div class="panel panel-info">
+   					 <div class="panel-heading">Od: <b>{{message.teacher_id.user.first_name}} {{message.teacher_id.user.last_name}}</b> Data: <b>{{message.date}}</b></div>
+   				 <div class="panel-body">{{message.contents}}</div>
+   				 <div class="panel-footer">
+   				 {% if message.is_read == True %}
+    				Wiadomość odczytana
+    				{% else %}
+    				Wiadomość nieodczytana
+    				{% endif %}
+  			 		 </div>
+ 						 </div>
+					  {% endfor %}						
+						
+						{% elif page_id == '3' %}
+				      <ul class="pagination">
+  						<li><a href="{% url 'teacherpage' '2'%}">Wysłane</a></li>
+ 						<li class="active" ><a href="{% url 'teacherpage' '3'%}">Nie potwierdzone</a></li>
+  						<li><a href="{% url 'teacherpage' '4'%}">Wyślij</a></li>
+						</ul>
+						
+						 {% for message in messages %}
+    					<div class="panel panel-info">
+   					 <div class="panel-heading">Od: <b>{{message.teacher_id.user.first_name}} {{message.teacher_id.user.last_name}}</b> Data: <b>{{message.date}}</b></div>
+   				 <div class="panel-body">{{message.contents}}</div>
+   				 <div class="panel-footer">
+    		
+  			 		 </div>
+ 						 </div>
+					  {% endfor %}
+					  
+						{% elif page_id == '4' %}
+						<ul class="pagination">
+  						<li><a href="{% url 'teacherpage' '2'%}">Wysłane</a></li>
+ 						<li><a href="{% url 'teacherpage' '3'%}">Nie potwierdzone</a></li>
+  						<li  class="active" ><a href="{% url 'teacherpage' '4'%}">Wyślij</a></li>
+						</ul>
+						 <form action="{% url 'teacherpage' '2' %}" method='post'>
+	{% csrf_token %}
+	<div class="form-group">
+	<label for="message">Tekst wiadomości</label>
+	<textarea class="form-control" rows="3" name="message"></textarea>
+
+	</select>
+	</div>
+	<div class="form-group">
+	<label for="term">Adresat</label>
+	<select name="student_id" class="form-control">
+	{% for student in allStudents %}
+		<option value="{{student.pk}}">{{student.user.first_name}} {{student.user.last_name}}</option>
+	{% endfor %}
+	</select>
+	</div>
+	<input type="hidden" name="create_message" value="1" />
+	<input type="submit" class="btn btn-default" value="Wyślij" />
+    </form>
+                    {% elif page_id == '5' %}
                         <p>Imie: {{teacher.user.first_name}}</p>
                         <p>Nazwisko: {{teacher.user.last_name}}</p>
                         <p>Nazwa użytkownika:  {{teacher.user.username}}</p>

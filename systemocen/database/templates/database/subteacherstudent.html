@@ -11,7 +11,64 @@
 <body>
 
 <div class="container">
+<div class="page-header">
   <h2>Nazwa zajec: {{subsubject}}</br>Student: {{student.user.first_name}} {{student.user.last_name}}</h2>
+  </div>
+  <div class="panel panel-default">
+  <div class="panel-heading"> Ocena końcowa z zajęć</div>
+<div class="panel-body">
+  			  <table class="table table-hover">
+				<thead>
+				  <tr>
+					<th>Nazwa przedmiotu</th>
+					<th>Termin 1</th>
+					<th>Termin 2</th>
+					<th>Termin 3</th>	
+					<th>Ocena końcowa</th>
+				  </tr>
+				</thead>
+				<tbody>
+				<tr><td>{{subsubjectStudent.sub_subject_id}}</td><td>{{subsubjectStudent.final_grade_id.term1_value}}</td><td>{{subsubjectStudent.final_grade_id.term2_value}}</td><td>{{subsubjectStudent.final_grade_id.term3_value}}</td><td>{{subsubjectStudent.final_grade_id.final_value}}</td><td>
+				</tbody>
+			  </table>
+			  </div>
+<div class="panel-footer">
+<p class="subjects">Dodaj ocenę z przedmiotu</p>
+    <form action="{% url 'teacheraddgrade' %}" method='post'>
+	{% csrf_token %}
+	<div class="form-group">
+	<label for="grade_value">Ocena</label>
+	<select name="grade_value" class="form-control">
+		<option>-</option>
+		<option>5.0</option>
+		<option>4.5</option>
+		<option>4.0</option>
+		<option>3.5</option>
+		<option>3.0</option>
+		<option>2.0</option>
+	</select>
+	</div>
+	<div class="form-group">
+	<label for="term">Termin</label>
+	<select name="term" class="form-control">
+		<option value="term1">Termin 1</option>
+		<option value="term2">Termin 2</option>
+		<option value="term3">Termin 3</option>
+		<option value="final">Ocena końcowa</option>
+	</select>
+	</div>
+	<input type="hidden" name="subject_id" value="{{subsubject.pk}}" />
+	<input type="hidden" name="student_id" value="{{student.pk}}" />
+	<input type="hidden" name="subject_type" value="subsubject" />
+	<input type="submit" class="btn btn-default" value="Dodaj" />
+    </form>
+    
+</p>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">Oceny cząstkowe</div>
+  <div class="panel-body">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -38,11 +95,13 @@
     {% endfor %}
     </tbody>
   </table>
-
+</div>
 <div class="panel-footer">
 <p class="subjects">Dodaj ocenę</p>
     <form action="{% url 'teacheraddsubgrade' %}" method='post'>
 	{% csrf_token %}
+	<div class="form-group">
+	<label for="grade_value">Ocena</label>
 	<select name="grade_value" class="form-control">
 		<option>5.0</option>
 		<option>4.5</option>
@@ -52,13 +111,14 @@
 		<option>2.5</option>
 		<option>2.0</option>
 	</select>
-	
+	</div>
 	<input type="hidden" name="subsubject_id" value="{{subsubject.pk}}" />
 	<input type="hidden" name="student_id" value="{{student.pk}}" />
-	<input type="submit" value="Dodaj" />
+	<input type="submit" value="Dodaj" class="btn btn-default" />
     </form>
     
 </p>
+</div>
 </div>
 </div>
 </body>

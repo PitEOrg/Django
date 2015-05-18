@@ -16,13 +16,13 @@
     <thead>
       <tr>
         <th>Ocena</th>
-        <th>Prowadzacy</th>
+        <th>Rodzaj zajęć</th>
         <th>Data wstawienia</th>
       </tr>
     </thead>
     <tbody>
-        {% for grade in grades %}
-	        <tr> <td>{{grade.value}}</td>  <td>{{grade.teacher_id.user.username}}</td>  <td>{{grade.date}}</td> </tr>
+        {% for subGrade in subGrades %}
+	        <tr> <td>{{subGrade.value}}</td><td>{{subGrade.sub_subject_id.subsubjecttype_id.name}}</td><td>{{subGrade.date}}</td></tr>
         {% endfor %}
     </tbody>
   </table>
