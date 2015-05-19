@@ -1,0 +1,62 @@
+
+1. Projekt
+2. Specyfikacja zewnętrzna
+  2.1 Obsługa programu z poziomu studenta
+  2.2 Obsługa programu z poziomu nauczyciela
+  2.3 Obsługa programu z poziomu właściciela
+3. Specyfikacja wewnętrzna
+  3.1 XXX
+
+	
+	1. Projekt
+
+Celem projektu jest stworzenie systemu "Wirtualny dziekanat" przy użyciu platformy Django.
+
+
+	2. Specyfikacja zewnętrzna
+	2.1 Obsługa programu z poziomu studenta
+
+Zaraz po zalogowaniu w centralnej części ekranu znajdują się informacje na temat zalogowanego użytkownika i możliwość wyboru z menu:
+ * Strona główna - Aktualnie wyświetlana strona.
+ * Oceny końcowe - Otwiera stronę z rozpiską otrzymanych ocen z uczęszczanych przedmiotów w danych terminach.
+ * Oceny cząstkowe - Otwiera stronę na której student ma możliwość obejrzenia swoich ocen po wybraniu przedmiotu i kliknięciu "ZOBACZ OCENY". Każdej ocenie przypisany jest rodzaj zajęć na jakich została ona wystawiona i data wystawienia.
+ * Wiadomości - Wyświetla chronologicznie wszystkie otrzymane wiadomości wraz z informacją o ich nadawcy i dacie wysłania.
+ * Twoje dane - Informacje o zalogowanym studencie (imię, nazwisko, nazwa użytkownika, email, zdjęcie).
+ * Wyloguj - Wylogowanie się z systemu.
+
+
+	2.2 Obsługa programu z poziomu nauczyciela
+
+Zaraz po zalogowaniu w centralnej części ekranu znajdują się informacje na temat zalogowanego użytkownika i możliwość wyboru z menu:
+ * Strona główna - Aktualnie wyświetlana strona.
+ * Prowadzone przedmioty - Wyświela dwie tabele, "Prowadzone przedmioty" i "Prowadzone zajęcia". W tej pierwszej po wybraniu przedmiotu i kliknięciu "SZCZEGÓŁY" otrzymywana jest lista studentów uczęszczających na dany przedmiot, a po wybraniu danego studenta możliwość przejrzenia otrzymanych przez niego wszystkich ocen z tego przedmiotu i wystawienia oceny końcowej. Natomiast w tabeli "Prowadzone zajęcia" wyświetlane są wszystkie zajęcia jakie prowadzi użytkownik. Po wyborze konkretnego przedmiotu wyświetla się lista studentów, a po wyborze studenta możliwość dodawania bądź usuwania mu ocen.
+ * Wiadomości - Wyświetla chronologicznie wszystkie otrzymane wiadomości wraz z informacją czy dana wiadomość została odczytana. Po wybraniu opcji "Wyślij" mamy możliwość wysłania wiadomości do innego użytkownika.
+ * Twoje dane - Informacje o zalogowanym studencie (imię, nazwisko, nazwa użytkownika, email, zdjęcie).
+ * Wyloguj - Wylogowanie się z systemu.
+
+
+	2.3 Obsługa programu z poziomu właściciela
+
+Po zalogowaniu na ekranie wyświetlają się trzy tabele:
+1. Autentykacja i autoryzacja - Pozwala na obsługę grup i użytkowników: tworzenie i usuwanie, zmiana hasła i danych.
+2. Database - Obsługa bazy w której znajdują się wszelkie informacje zawarte w systemie.
+ * Final grades -Końcowe oceny, powiązane z konkretnym studentem i zajęciami.
+ * Messages - Baza wiadomości w których zawarta jest treść, nadawca, odbiorca, data wysłania i informacja czy wiadomość została odczytana.
+ * Students - Przypisanie konkretnego użytkownika do grupy studentów i nadanie mu zdjęcia.
+ * Subgrades	- Wszystkie wystawione oceny które mają w sobie informację o studencie, wystawiającym nauczycielu i zajęciach.
+ * Subjects - Tworzenie przedmiotów i przypisywanie im odpowiedzialnych za nie nauczycieli.
+ * Subjects students - Powiązania studentów z przedmiotami i końcowymi ocenami z tego przedmiotu.
+ * Subsubject types - Rodzaje prowadzonych zajęć.
+ * Subsubjects - Lista prowadzonych zajęć którym przypisywany jest przedmiot, prowadzący i rodzaj zajęć (wykład, ćwiczenia, laboratoria itp.).
+ * Subsubjects studentss - Powiązania studentów z zajęciami i końcowymi ocenami z tych zajęć.
+ * Teachers - Przypisanie konkretnego użytkownika do grupy nauczycieli i nadanie mu zdjęcia.
+3. Ostatnie akcje - Tutaj wyświetlają się wszystkie ostatnie zmiany jakie zostały wprowadzone.
+
+
+	3. Specyfikacja wewnętrzna
+	3.1 XXX
+
+
+
+
+
