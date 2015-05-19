@@ -4,8 +4,7 @@
   2.1 Obsługa programu z poziomu studenta
   2.2 Obsługa programu z poziomu nauczyciela
   2.3 Obsługa programu z poziomu właściciela
-3. Specyfikacja wewnętrzna
-  3.1 XXX
+3. Rzeczy niedokończone
 
 	
 	1. Projekt
@@ -53,8 +52,13 @@ Po zalogowaniu na ekranie wyświetlają się trzy tabele:
 3. Ostatnie akcje - Tutaj wyświetlają się wszystkie ostatnie zmiany jakie zostały wprowadzone.
 
 
-	3. Specyfikacja wewnętrzna
-	3.1 XXX
+	3. Rzeczy niedokończone
+Projekt można rozwinć o nastpujce funkcjonalnoci:
+-Masowe dodawanie ocen
+-Wprowadzenie obsugi semestrów/lat
+-Zaimplementowanie przyjaznego panelu admina 
+-Wprowadzenie mechanizmu zapobiegajcego utracie integracji bazy danych(np. przy usuwaniu studentów)
+-Poprawienie czytelnoci kodu np. podzielenie projektu na kilka mniejszych
 
 
 
