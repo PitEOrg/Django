@@ -16,3 +16,55 @@ Na spotakniu ustaliliśmy, że nasz projekt będzie realizował internetowy syst
 
 System będzie tak zbudowany aby w łatwy sposób można było dodać nowe funkcjonalności (nacisk na modułowość). Początkowo interface strony www będzie statyczny. Opcjonalną możliwością (jeśli czas pozwoli) będzie interface zbudowany w oparciu o javascript. 
 
+Spotkanie 2 (28 kwietnia 2015)
+Osoby biorace udzial:
+- Grzegorz Ryniak
+- Karol Cwynar
+- Karol Etrych
+- Lukasz Ujma
+- Grzegorz Rucki
+
+Czas spotkania: 15 minut
+
+Opis:
+Decyzja o stworzeniu serwera z publicznym dostepem. Omowienie wstepnej implementacji. Sprecyzowanie zadan dla poszczegolnych czlonkow zespolu.
+- Grzegorz Ryniak - stworzenie szkieletu aplikacji
+- Karol Cwynar - front-end
+- Karol Etrych - panel administratora
+- Lukasz Ujma - dokumentacja
+- Grzegorz Rucki - testy dzialania aplikacji
+
+Do nastepnego spotkania(za tydzien) podstawowa funkcjonalnosc aplikacji ma byc zaimplementowana.
+
+Spotkanie 3 (6 maja 2015)
+Osoby biorace udzial:
+- Grzegorz Ryniak
+- Karol Cwynar
+- Karol Etrych
+- Grzegorz Rucki
+
+Czas spotkania: 10 minut
+
+Opis:
+Decyzja o wykorzystanaiu bootstrapa do stworzenia frontu. Decyzja o dodaniu funkcjonalnosci - wysylanie wiadomosci przez nauczyciela.
+
+Spotkanie 4(12 maja 2015)
+Osoby biorace udzial:
+- Grzegorz Ryniak
+- Karol Etrych
+- Lukasz Ujma
+
+Czas spotkania: 15 minut
+
+Opis:
+Decyzja o przemodelowaniu bazy danych spowodowana koniecznoscia dodania podprzedmiotow (subsubjects). 
+
+Spotkanie 4(19 maja 2015)
+Osoby biorace udzial:
+- Grzegorz Ryniak
+- Lukasz Ujma
+
+Czas spotkania: 5 minut
+
+Opis:
+Wskazowki dotyczace dokumentacji i opisu projektu.
