@@ -36,6 +36,8 @@ Zaraz po zalogowaniu w centralnej części ekranu znajdują się informacje na t
 
 	2.3 Obsługa programu z poziomu właściciela
 
+Uruchomienie aplikacji. Należy przejść do katalogu systemocen i wydać polecenie: python manage.py runserver.
+Strona będzie dostępna pod adresem: localhost:8000
 Po zalogowaniu na ekranie wyświetlają się trzy tabele:
 1. Autentykacja i autoryzacja - Pozwala na obsługę grup i użytkowników: tworzenie i usuwanie, zmiana hasła i danych.
 2. Database - Obsługa bazy w której znajdują się wszelkie informacje zawarte w systemie.
